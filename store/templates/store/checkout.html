@@ -1,0 +1,119 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - ShopEasy</title>
+
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <a class="logo" href="{% url 'home' %}">
+            ShopEasy
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'cart' %}">
+                🛒 Cart
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="container checkout-container">
+
+    <div class="checkout-card">
+
+        <h1>
+            Checkout
+        </h1>
+
+
+        <h2>
+            Order Summary
+        </h2>
+
+
+        {% for item in cart_items %}
+
+        <div class="order-row">
+
+            <span>
+                {{ item.product.name }}
+                × {{ item.quantity }}
+            </span>
+
+            <strong>
+                ₹{% widthratio item.product.price 1 item.quantity %}
+            </strong>
+
+        </div>
+
+        {% endfor %}
+
+
+        <div class="checkout-total">
+
+            Total:
+            ₹{{ total }}
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <button
+                class="btn btn-success"
+                type="submit"
+            >
+                ✓ Place Order
+            </button>
+
+            <a
+                class="btn btn-secondary"
+                href="{% url 'cart' %}"
+            >
+                Back to Cart
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<footer class="footer">
+
+    <p>
+        © 2026 ShopEasy
+    </p>
+
+</footer>
+
+</body>
+</html>

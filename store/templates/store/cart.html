@@ -1,0 +1,151 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shopping Cart - ShopEasy</title>
+
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <a class="logo" href="{% url 'home' %}">
+            ShopEasy
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'cart' %}">
+                🛒 Cart
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="container cart-container">
+
+    <h1 class="section-title">
+        Shopping Cart
+    </h1>
+
+
+    {% if cart_items %}
+
+        {% for item in cart_items %}
+
+        <div class="cart-item">
+
+            <div class="cart-info">
+
+                <h3>
+                    {{ item.product.name }}
+                </h3>
+
+                <p class="quantity">
+                    Quantity: {{ item.quantity }}
+                </p>
+
+                <p class="cart-price">
+                    Price: ₹{{ item.product.price }}
+                </p>
+
+                <p>
+                    Subtotal:
+                    <strong>
+                        ₹{% widthratio item.product.price 1 item.quantity %}
+                    </strong>
+                </p>
+
+            </div>
+
+
+            <div class="cart-actions">
+
+                <a
+                    class="btn btn-danger"
+                    href="{% url 'remove_from_cart' item.id %}"
+                >
+                    Remove
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+        <div class="total-box">
+
+            <h2>
+                Grand Total: ₹{{ total }}
+            </h2>
+
+            <a
+                class="btn btn-primary"
+                href="{% url 'checkout' %}"
+            >
+                Proceed to Checkout
+            </a>
+
+        </div>
+
+
+    {% else %}
+
+        <div class="empty-cart">
+
+            <h2>
+                Your cart is empty 🛒
+            </h2>
+
+            <p>
+                Add some products to your cart.
+            </p>
+
+            <br>
+
+            <a
+                class="btn btn-primary"
+                href="{% url 'home' %}"
+            >
+                Continue Shopping
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<footer class="footer">
+
+    <p>
+        © 2026 ShopEasy
+    </p>
+
+</footer>
+
+</body>
+</html>

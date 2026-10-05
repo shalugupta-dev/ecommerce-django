@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.name }} - ShopEasy</title>
+
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <a class="logo" href="{% url 'home' %}">
+            ShopEasy
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'cart' %}">
+                🛒 Cart
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="product-detail">
+
+        {% if product.image %}
+
+        <img
+            class="product-detail-image"
+            src="{{ product.image }}"
+            alt="{{ product.name }}"
+        >
+
+        {% endif %}
+
+
+        <h1>
+            {{ product.name }}
+        </h1>
+
+
+        <p class="product-detail-description">
+            {{ product.description }}
+        </p>
+
+
+        <p class="price">
+            ₹{{ product.price }}
+        </p>
+
+
+        <p class="stock">
+            ✓ {{ product.stock }} items available
+        </p>
+
+
+        <div class="product-buttons">
+
+            <a
+                class="btn btn-success"
+                href="{% url 'add_to_cart' product.id %}"
+            >
+                Add to Cart
+            </a>
+
+            <a
+                class="btn btn-secondary"
+                href="{% url 'home' %}"
+            >
+                Back to Products
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer class="footer">
+
+    <p>
+        © 2026 ShopEasy
+    </p>
+
+</footer>
+
+</body>
+</html>
